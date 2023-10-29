@@ -1,12 +1,12 @@
 version: '3.3'
 
-networks:
-  ntmysql:
-    driver: bridge
-    ipam:
-      driver: default
-      config: 
-        - subnet: 172.23.0.0/24
+#networks:
+#  ntmysql:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config: 
+#        - subnet: 172.23.0.0/24
 
 services:
   db:
@@ -15,18 +15,19 @@ services:
     container_name: mysqldb
     volumes:
       - mysqldb-volume:/var/lib/mysql
-    networks:
-      ntmysql:
-        ipv4_address: 172.23.0.2
+#    networks:
+#      ntmysql:
+#        ipv4_address: 172.23.0.2
     ports:
-      - target: 3606
-        published: 3606 
-        protocol: tcp
-        mode: host
-      - target: 3606
-        published: 36006
-        protocol: tcp
-        mode: host
+      - 36060:3606
+#      - target: 3606
+#        published: 3606 
+#        protocol: tcp
+#        mode: host
+#      - target: 3606
+#        published: 36006
+#        protocol: tcp
+#        mode: host
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
@@ -37,9 +38,9 @@ services:
     restart: unless-stopped
     container_name: phpmyadmin
 
-    networks:
-      ntmysql:
-        ipv4_address: 172.23.0.3
+#    networks:
+#      ntmysql:
+#        ipv4_address: 172.23.0.3
     ports:
       - target: 80
         published: 8082
